@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Animations with Reset</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+      flex-direction: column;
+    }
+
+    #box {
+      width: 50px;
+      height: 50px;
+      background-color: #FF015A;
+      border-radius: 10px;
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease;
+      z-index: 10; /* Ensures the box is above other elements */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      z-index: 1; /* Lower z-index for buttons so they're behind the box */
+    }
+
+    /* Keyframes for moving the box horizontally */
+    @keyframes moveHorizontally {
+      0% {
+        left: 0;
+      }
+      100% {
+        left: calc(100% - 50px);
+      }
+    }
+
+    /* Keyframes for rotating the box */
+    @keyframes rotateBox {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    /* Keyframes for scaling the box */
+    @keyframes scaleBox {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.5);
+      }
+    }
+
+    /* CSS classes for each animation */
+    .move {
+      animation: moveHorizontally 2s forwards;
+    }
+
+    .rotate {
+      animation: rotateBox 2s forwards;
+    }
+
+    .scale {
+      animation: scaleBox 2s forwards;
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="box"></div>
+<button onclick="startAnimation('move')">Move</button>
+<button onclick="startAnimation('rotate')">Rotate</button>
+<button onclick="startAnimation('scale')">Scale</button>
+<button onclick="resetBox()">Reset</button>
+
+<script>
+  function startAnimation(animationType) {
+    const box = document.getElementById('box');
+    // Remove any previous animations
+    box.classList.remove('move', 'rotate', 'scale');
+    // Trigger the selected animation
+    box.classList.add(animationType);
+  }
+
+  function resetBox() {
+    const box = document.getElementById('box');
+    // Remove any previous animations
+    box.classList.remove('move', 'rotate', 'scale');
+    // Reset the position, scale, and rotation manually using inline styles
+    box.style.left = '40%';
+    box.style.top = '40%';
+    box.style.transform = 'translate(-50%, -50%) rotate(0deg) scale(1)';
+    box.style.backgroundColor = '#FF015A'; // Reset the color if needed
+  }
+</script>
+
+</body>
+</html>
